@@ -19,6 +19,10 @@ function sendEvent(eventData){
 export const handleEvent = (event) => {
     const target = event.target;
 
+    if (target.id === "" || target.className === ""){
+        return;
+    }
+
     // Check if the target is a clickable component or form
     if (event.type === 'submit' && target.closest('form')) {
         event.preventDefault();
