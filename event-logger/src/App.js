@@ -1,25 +1,36 @@
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
+import { handleEvent } from './eventHandler';
 import './App.css';
 
-function App() {
+const App = () => {
+
+  useEffect(() => {
+    // Attach event listeners
+    document.addEventListener('click', handleEvent);
+    document.addEventListener('submit', handleEvent);
+
+    // Cleanup event listeners on component unmount
+    return () => {
+      document.removeEventListener('click', handleEvent);
+      document.removeEventListener('submit', handleEvent);
+    };
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Event Delegation Demo</h1>
+        <button id="myButton1" className="clickable">Click Me 1</button>
+        <button id="myButton2" className="clickable">Click Me 2</button>
+        <button id="myButton3" className="clickable">Click Me 3</button>
+        <form id="myForm">
+          <input type="text" name="username" placeholder="Username" />
+          <input type="password" name="password" placeholder="Password" />
+          <button type="submit">Submit</button>
+        </form>
       </header>
     </div>
   );
-}
+};
 
 export default App;
